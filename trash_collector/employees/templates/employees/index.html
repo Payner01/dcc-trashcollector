@@ -8,9 +8,10 @@
 <br />
 <h3>Customers in your zipcode:</h3>
 <br />
-    {% for item in customers_in_my_zipcode %}
+    {% for item in pick_up_day %}
       <ul>
-          <li>{{item.name}}</li>
+          <li>{{item.name}} - {{item.weekly_pickup|default_if_none:""}} Pickup Day! {{item.one_time_pickup|default_if_none:""}}</li>
+          <li></li>
       </ul>
       {% endfor %}
     

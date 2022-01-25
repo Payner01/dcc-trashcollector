@@ -1,3 +1,4 @@
+from ast import Or
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.apps import apps
@@ -23,15 +24,20 @@ def index(request):
         # This line will return the customer record of the logged-in user if one exists
         logged_in_employee = Employee.objects.get(user=logged_in_user)
 
+
+
         today = date.today()
+        weekday = today.strftime('%A')
         # employee_zip = logged_in_employee.zip_code
         customers_in_my_zipcode = Customer.objects.filter(zip_code = logged_in_employee.zip_code)
-        data_visualization = [item for item in customers_in_my_zipcode]
+        pick_up_day = customers_in_my_zipcode.filter(weekly_pickup = weekday) or customers_in_my_zipcode.filter(one_time_pickup = weekday)
+        data_visualization = [item for item in pick_up_day]
         
         context = {
             'logged_in_employee': logged_in_employee,
             'today': today,
-            'customers_in_my_zipcode': customers_in_my_zipcode
+            'customers_in_my_zipcode': customers_in_my_zipcode,
+            'pick_up_day': pick_up_day
         }
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
