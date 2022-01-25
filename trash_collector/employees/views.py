@@ -31,13 +31,16 @@ def index(request):
         # employee_zip = logged_in_employee.zip_code
         customers_in_my_zipcode = Customer.objects.filter(zip_code = logged_in_employee.zip_code)
         pick_up_day = customers_in_my_zipcode.filter(weekly_pickup = weekday) or customers_in_my_zipcode.filter(one_time_pickup = weekday)
+        suspended_or_no = pick_up_day.exclude(suspend_start__lte = today) and pick_up_day.exclude(suspend_end__gte = today)
         data_visualization = [item for item in pick_up_day]
         
         context = {
             'logged_in_employee': logged_in_employee,
             'today': today,
             'customers_in_my_zipcode': customers_in_my_zipcode,
-            'pick_up_day': pick_up_day
+            'pick_up_day': pick_up_day,
+            'suspended_or_no': suspended_or_no,
+
         }
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
