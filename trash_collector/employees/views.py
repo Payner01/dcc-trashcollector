@@ -21,26 +21,19 @@ def index(request):
     Customer = apps.get_model('customers.Customer')
     logged_in_user = request.user
     try:
-        # This line will return the customer record of the logged-in user if one exists
         logged_in_employee = Employee.objects.get(user=logged_in_user)
-
-
 
         today = date.today()
         weekday = today.strftime('%A')
-        # employee_zip = logged_in_employee.zip_code
         customers_in_my_zipcode = Customer.objects.filter(zip_code = logged_in_employee.zip_code)
-        pick_up_day = customers_in_my_zipcode.filter(weekly_pickup = weekday) or customers_in_my_zipcode.filter(one_time_pickup = weekday)
-        suspended_or_no = pick_up_day.exclude(suspend_start__lte = today) and pick_up_day.exclude(suspend_end__gte = today)
+        pick_up_day = customers_in_my_zipcode.filter(weekly_pickup = weekday) | customers_in_my_zipcode.filter(one_time_pickup = weekday)
+        
         data_visualization = [item for item in pick_up_day]
         
         context = {
             'logged_in_employee': logged_in_employee,
             'today': today,
-            'customers_in_my_zipcode': customers_in_my_zipcode,
-            'pick_up_day': pick_up_day,
-            'suspended_or_no': suspended_or_no,
-
+            'pick_up_day': pick_up_day
         }
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
