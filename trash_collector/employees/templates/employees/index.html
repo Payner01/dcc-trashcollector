@@ -6,15 +6,21 @@
   {% if user.is_authenticated %}
     Hello Employee, {{logged_in_employee.name}}!
 <br />
-<h3>Customers in your zipcode:</h3>
+<h3>Customers on your route today:</h3>
 <br />
     {% for item in trash_picked_up %}
       <ul>
           {{item.name}} - {{item.weekly_pickup|default_if_none:""}} Pickup Day! {{item.one_time_pickup|default_if_none:""}}
-            <a href="{% url 'employees:confirm_pickup' item.id %}">Confirm Pickup</a>
+            <a class="btn btn-success" href="{% url 'employees:confirm_pickup' item.id %}">Confirm Pickup</a>
           
       </ul>
       {% endfor %}
+      <br>
+      <br>
+      <br>
+      <br>
+      <h4>View pickups by each day!</h4>
+      <br>
       <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Monday' %}">Monday</a> - 
       <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Tuesday' %}">Tuesday</a> - 
       <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Wednesday' %}">Wednesday</a> - 
