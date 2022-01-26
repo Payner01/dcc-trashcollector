@@ -1,4 +1,3 @@
-from ast import Or
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.apps import apps
@@ -32,18 +31,36 @@ def index(request):
         customers_in_my_zipcode = Customer.objects.filter(zip_code = logged_in_employee.zip_code)
         pick_up_day = customers_in_my_zipcode.filter(weekly_pickup = weekday) | customers_in_my_zipcode.filter(one_time_pickup = today)
         suspended_or_no = pick_up_day.exclude(suspend_start__lte = today, suspend_end__gte = today)
+        trash_picked_up = suspended_or_no.exclude(date_of_last_pickup = today)
+        
+
+
         data_visualization = [item for item in suspended_or_no]
         #put a customer who has a suspension already over
         #also before today
         context = {
             'logged_in_employee': logged_in_employee,
             'today': today,
-            'suspended_or_no': suspended_or_no
+            'trash_picked_up': trash_picked_up
 
         }
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:create'))
+
+
+@login_required
+def confirm_pickup(request, item_id):
+    Customer = apps.get_model('customers.Customer')
+    today = date.today()
+    pickup_date = Customer.objects.get(pk=item_id)
+    pickup_date.date_of_last_pickup = today
+    pickup_date.save()
+    return HttpResponseRedirect(reverse('employees:index'))
+
+
+
+
 
 @login_required
 def create(request):

@@ -8,9 +8,10 @@
 <br />
 <h3>Customers in your zipcode:</h3>
 <br />
-    {% for item in suspended_or_no %}
+    {% for item in trash_picked_up %}
       <ul>
-          <li>{{item.name}} - {{item.weekly_pickup|default_if_none:""}} Pickup Day! {{item.one_time_pickup|default_if_none:""}}</li>
+          <li>{{item.name}} - {{item.weekly_pickup|default_if_none:""}} Pickup Day! {{item.one_time_pickup|default_if_none:""}}
+            <a href="{% url 'employees:confirm_pickup' item.id %}">Confirm Pickup</a></li>
           <li></li>
       </ul>
       {% endfor %}
