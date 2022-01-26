@@ -10,13 +10,18 @@
 <br />
     {% for item in trash_picked_up %}
       <ul>
-          <li>{{item.name}} - {{item.weekly_pickup|default_if_none:""}} Pickup Day! {{item.one_time_pickup|default_if_none:""}}
-            <a href="{% url 'employees:confirm_pickup' item.id %}">Confirm Pickup</a></li>
-          <li></li>
+          {{item.name}} - {{item.weekly_pickup|default_if_none:""}} Pickup Day! {{item.one_time_pickup|default_if_none:""}}
+            <a href="{% url 'employees:confirm_pickup' item.id %}">Confirm Pickup</a>
+          
       </ul>
       {% endfor %}
-    
-    {{customers_in_my_zipcode.name}}
+      <a href="{% url 'employees:search_daily_pickups' 'Monday' %}">Monday</a>
+      <a href="{% url 'employees:search_daily_pickups' 'Tuesday' %}">Tuesday</a>
+      <a href="{% url 'employees:search_daily_pickups' 'Wednesday' %}">Wednesday</a>
+      <a href="{% url 'employees:search_daily_pickups' 'Thursday' %}">Thursday</a>
+      <a href="{% url 'employees:search_daily_pickups' 'Friday' %}">Friday</a>
+      <a href="{% url 'employees:search_daily_pickups' 'Saturday' %}">Saturday</a>
+      <a href="{% url 'employees:search_daily_pickups' 'Sunday' %}">Sunday</a> 
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>

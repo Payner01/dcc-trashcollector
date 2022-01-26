@@ -1,0 +1,24 @@
+{% extends 'employees/employee_base.html' %}
+
+{% block title %}{% block header %} Employee Day Route {% endblock %}{% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    Hello Employee, {{logged_in_employee.name}}!
+<br />
+<h3>Customers on {{day_of_week}}</h3>
+<br />
+    
+    {% for item in pickup_day %}
+      <ul>
+          {{item.name}} lives in {{item.address}} {{item.zip_code}}
+      </ul>
+      {% endfor %}
+    
+  {{selected_day}}
+  {% else %}
+    <p>You are at the employee index, but you are not logged in.</p>
+    <a href="{% url 'login' %}">Log In</a>
+    <a href="{% url 'accounts:register' %}">Sign Up</a>
+  {% endif %}
+{% endblock %}

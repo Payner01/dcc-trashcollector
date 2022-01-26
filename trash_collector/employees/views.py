@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from datetime import date
 from .models import Employee
+from django import forms
 
 
 
@@ -24,7 +25,8 @@ def index(request):
         logged_in_employee = Employee.objects.get(user=logged_in_user)
 
 
-
+        weekday_list = [('monday','Monday'), 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        selected_day = forms.CharField(label='View Day', widget=forms.Select(choices=weekday_list))
         today = date.today()
         weekday = today.strftime('%A')
         # employee_zip = logged_in_employee.zip_code
@@ -41,7 +43,8 @@ def index(request):
         context = {
             'logged_in_employee': logged_in_employee,
             'today': today,
-            'trash_picked_up': trash_picked_up
+            'trash_picked_up': trash_picked_up,
+            'selected_day': selected_day
 
         }
         return render(request, 'employees/index.html', context)
@@ -60,8 +63,20 @@ def confirm_pickup(request, item_id):
     return HttpResponseRedirect(reverse('employees:index'))
 
 
-
-
+@login_required
+def search_daily_pickups(request, weekday):
+    weekday = weekday
+    logged_in_user = request.user
+    logged_in_employee = Employee.objects.get(user=logged_in_user)
+    Customer = apps.get_model('customers.Customer')
+    pickup_day = Customer.objects.filter(weekly_pickup = weekday).order_by('zip_code')
+    data_visualization = [item for item in pickup_day]
+    context = {
+        'logged_in_employee': logged_in_employee,
+        'pickup_day': pickup_day,
+        'day_of_week': weekday
+    }
+    return render(request, 'employees/search_daily_pickups.html', context)
 
 @login_required
 def create(request):
