@@ -9,7 +9,8 @@ from .models import Employee
 from django import forms
 
 
-
+# The index function lists the customers who are in the employee's zip code who have pick ups on the current day. It also 
+# provides buttons to review information on customers who have pick up days other than the current day.
 @login_required
 def index(request):
     Customer = apps.get_model('customers.Customer')
@@ -17,7 +18,6 @@ def index(request):
     try:
         logged_in_employee = Employee.objects.get(user=logged_in_user)
         weekday_list = [('monday','Monday'), 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-        selected_day = forms.CharField(label='View Day', widget=forms.Select(choices=weekday_list))
         today = date.today()
         weekday = today.strftime('%A')
         customers_in_my_zipcode = Customer.objects.filter(zip_code = logged_in_employee.zip_code)
@@ -29,7 +29,6 @@ def index(request):
             'logged_in_employee': logged_in_employee,
             'today': today,
             'trash_picked_up': trash_picked_up,
-            'selected_day': selected_day
 
         }
         return render(request, 'employees/index.html', context)
@@ -66,6 +65,8 @@ def search_daily_pickups(request, weekday):
     }
     return render(request, 'employees/search_daily_pickups.html', context)
 
+
+# This function completes the registration for the new employee account.
 @login_required
 def create(request):
     logged_in_user = request.user
