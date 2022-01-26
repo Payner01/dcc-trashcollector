@@ -31,8 +31,8 @@ def index(request):
         # employee_zip = logged_in_employee.zip_code
         customers_in_my_zipcode = Customer.objects.filter(zip_code = logged_in_employee.zip_code)
         pick_up_day = customers_in_my_zipcode.filter(weekly_pickup = weekday) | customers_in_my_zipcode.filter(one_time_pickup = today)
-        suspended_or_no = pick_up_day.exclude(suspend_start__lte = today) and pick_up_day.exclude(suspend_end__gte = today)
-        data_visualization = [item for item in pick_up_day]
+        suspended_or_no = pick_up_day.exclude(suspend_start__lte = today, suspend_end__gte = today)
+        data_visualization = [item for item in suspended_or_no]
         #put a customer who has a suspension already over
         #also before today
         context = {
