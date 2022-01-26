@@ -15,12 +15,12 @@
           
       </ul>
       {% endfor %}
-      <a href="{% url 'employees:search_daily_pickups' 'Monday' %}">Monday</a>
-      <a href="{% url 'employees:search_daily_pickups' 'Tuesday' %}">Tuesday</a>
-      <a href="{% url 'employees:search_daily_pickups' 'Wednesday' %}">Wednesday</a>
-      <a href="{% url 'employees:search_daily_pickups' 'Thursday' %}">Thursday</a>
-      <a href="{% url 'employees:search_daily_pickups' 'Friday' %}">Friday</a>
-      <a href="{% url 'employees:search_daily_pickups' 'Saturday' %}">Saturday</a>
+      <a href="{% url 'employees:search_daily_pickups' 'Monday' %}">Monday</a> - 
+      <a href="{% url 'employees:search_daily_pickups' 'Tuesday' %}">Tuesday</a> - 
+      <a href="{% url 'employees:search_daily_pickups' 'Wednesday' %}">Wednesday</a> - 
+      <a href="{% url 'employees:search_daily_pickups' 'Thursday' %}">Thursday</a> - 
+      <a href="{% url 'employees:search_daily_pickups' 'Friday' %}">Friday</a> - 
+      <a href="{% url 'employees:search_daily_pickups' 'Saturday' %}">Saturday</a> - 
       <a href="{% url 'employees:search_daily_pickups' 'Sunday' %}">Sunday</a> 
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
