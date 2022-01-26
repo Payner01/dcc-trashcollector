@@ -55,6 +55,7 @@ def confirm_pickup(request, item_id):
     today = date.today()
     pickup_date = Customer.objects.get(pk=item_id)
     pickup_date.date_of_last_pickup = today
+    pickup_date.balance += 20
     pickup_date.save()
     return HttpResponseRedirect(reverse('employees:index'))
 
