@@ -2,16 +2,17 @@
 
 {% block title %} Customer Home {% endblock %}
 
-{% block header %} Customer Portal {% endblock %}
+{% block header %} <h1 class="text-white">Customer Portal</h1> {% endblock %}
 
 {% block content %}
   {% if user.is_authenticated %}
+        <br />
         Hello {{ logged_in_customer.name }}!<br />
         Address: {{ logged_in_customer.address }} {{logged_in_customer.zip_code }}<br />
         Current balance: $ {{ logged_in_customer.balance }}.00
         <br />
         <br />
-        Your Weekly Pickup Day: {{ logged_in_customer.weekly_pickup }}
+        Your Weekly Pickup Day:   {{ logged_in_customer.weekly_pickup }}
         <br />
         <br />
         {% if logged_in_customer.one_time_pickup %}
