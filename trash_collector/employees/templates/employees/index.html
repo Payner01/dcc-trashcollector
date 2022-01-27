@@ -1,14 +1,11 @@
 {% extends 'employees/employee_base.html' %}
 
 {% block title %}{% block header %} Employee Home {% endblock %}{% endblock %}
-<br>
-<br>
-<br>
+
 {% block content %}
+<br />
   {% if user.is_authenticated %}
     Hello Trash Employee, {{logged_in_employee.name}}!
-<br>
-<br>
 <br>
 <br>
 <br>

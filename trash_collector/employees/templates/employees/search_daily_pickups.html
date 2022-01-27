@@ -3,19 +3,49 @@
 {% block title %}{% block header %} Employee Day Route {% endblock %}{% endblock %}
 
 {% block content %}
+<br />
   {% if user.is_authenticated %}
-    Hello Employee, {{logged_in_employee.name}}!
+    Hello Trash Employee, {{logged_in_employee.name}}!
+<br />
+<br />
 <br />
 <h3>Customers on {{day_of_week}}</h3>
 <br />
-    
-    {% for item in pickup_day %}
-      <ul>
-          {{item.name}} lives in {{item.address}} {{item.zip_code}}
-      </ul>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Zip Code</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        
+        <tr>
+  {% for item in pickup_day %}        
+          <td>{{item.name}}</td>
+          <td>{{item.address}}</td>
+          <td>{{item.zip_code}}</td>
       {% endfor %}
+      </tr>
+      </tbody>
+    </table>
+    <br />
+    <br />
+    <br />
+    <br />
     
-  {{selected_day}}
+      <h4>View pickups by each day!</h4>
+      <br>
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Monday' %}">Monday</a>  
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Tuesday' %}">Tuesday</a>  
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Wednesday' %}">Wednesday</a> 
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Thursday' %}">Thursday</a> 
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Friday' %}">Friday</a>  
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Saturday' %}">Saturday</a>  
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Sunday' %}">Sunday</a> 
+
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>
