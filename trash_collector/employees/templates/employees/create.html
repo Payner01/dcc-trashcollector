@@ -8,9 +8,11 @@
 
 <form action="{% url 'employees:create' %}" method="post">
     {% csrf_token %}
+    <br>
     Name: <input type="text" name="name" id="name"><br />
     Address: <input type="text" name="address" id="address"><br />
     Zip Code: <input type="text" name="zip_code" id="zip_code"><br />
+    <br>
     <input class="btn btn-success" type="submit" value="Register">
 </form>
 

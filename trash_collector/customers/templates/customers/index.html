@@ -7,7 +7,7 @@
 {% block content %}
   {% if user.is_authenticated %}
         <br />
-        Hello {{ logged_in_customer.name }}!<br />
+        Hello Trash Customer, {{ logged_in_customer.name }}!<br />
         Address: {{ logged_in_customer.address }} {{logged_in_customer.zip_code }}<br />
         Current balance: $ {{ logged_in_customer.balance }}.00
         <br />

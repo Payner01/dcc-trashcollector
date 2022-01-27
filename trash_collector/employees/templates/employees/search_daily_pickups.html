@@ -1,6 +1,6 @@
 {% extends 'employees/employee_base.html' %}
 
-{% block title %}{% block header %} Employee Day Route {% endblock %}{% endblock %}
+{% block title %}{% block header %} Employee {{day_of_week}} Route {% endblock %}{% endblock %}
 
 {% block content %}
 <br />
@@ -9,9 +9,8 @@
 <br />
 <br />
 <br />
-<h3>Customers on {{day_of_week}}</h3>
 <br />
-    <table class="table table-striped">
+    <table class="table table-striped table-dark">
       <thead>
         <tr>
           <th scope="col">Name</th>
@@ -27,7 +26,6 @@
           <td>{{item.name}}</td>
           <td>{{item.address}}</td>
           <td>{{item.zip_code}}</td>
-      
       </tr>
       {% endfor %}
       </tbody>
