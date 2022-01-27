@@ -16,6 +16,7 @@
           <th scope="col">Name</th>
           <th scope="col">Address</th>
           <th scope="col">Zip Code</th>
+          <th scope="col">Balance</th>
         </tr>
       </thead>
       
@@ -26,6 +27,7 @@
           <td>{{item.name}}</td>
           <td>{{item.address}}</td>
           <td>{{item.zip_code}}</td>
+          <td>${{item.balance}}</td>
       </tr>
       {% endfor %}
       </tbody>
