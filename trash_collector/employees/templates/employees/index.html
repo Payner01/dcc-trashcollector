@@ -1,32 +1,58 @@
 {% extends 'employees/employee_base.html' %}
 
 {% block title %}{% block header %} Employee Home {% endblock %}{% endblock %}
-
+<br>
+<br>
+<br>
 {% block content %}
   {% if user.is_authenticated %}
     Hello Trash Employee, {{logged_in_employee.name}}!
-<br />
+<br>
+<br>
+<br>
+<br>
+<br>
 <h3>Customers on your route today:</h3>
 <br />
-    {% for item in trash_picked_up %}
-      <ul>
-          {{item.name}} - {{item.address}} , {{item.zip_code}} Has a pick up today: {{item.weekly_pickup|default_if_none:""}}{{item.one_time_pickup|default_if_none:""}}
-            <a class="btn btn-success" href="{% url 'employees:confirm_pickup' item.id %}">Confirm Pickup</a>
+    
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Zip Code</th>
+            <th scope="col">Pickup Day</th>
+            <th scope="col">Confirm Pickup</th>
+          </tr>
+        </thead>
+        
+        <tbody>
           
-      </ul>
-      {% endfor %}
+          <tr>
+    {% for item in trash_picked_up %}        
+            <td>{{item.name}}</td>
+            <td>{{item.address}}</td>
+            <td>{{item.zip_code}}</td>
+            <td>{{item.weekly_pickup|default_if_none:""}}{{item.one_time_pickup|default_if_none:""}}</td>
+            <td><a class="btn btn-success" href="{% url 'employees:confirm_pickup' item.id %}">Confirm Pickup</a></td>
+          </tr>
+      {% endfor %}  
+        </tbody>
+          
+      </table>
+      
       <br>
       <br>
       <br>
       <br>
       <h4>View pickups by each day!</h4>
       <br>
-      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Monday' %}">Monday</a> | 
-      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Tuesday' %}">Tuesday</a> | 
-      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Wednesday' %}">Wednesday</a> | 
-      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Thursday' %}">Thursday</a> | 
-      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Friday' %}">Friday</a> | 
-      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Saturday' %}">Saturday</a> | 
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Monday' %}">Monday</a>  
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Tuesday' %}">Tuesday</a>  
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Wednesday' %}">Wednesday</a> 
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Thursday' %}">Thursday</a> 
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Friday' %}">Friday</a>  
+      <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Saturday' %}">Saturday</a>  
       <a class="btn btn-primary" href="{% url 'employees:search_daily_pickups' 'Sunday' %}">Sunday</a> 
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
