@@ -2,7 +2,7 @@
 
 {% block title %} Customer Profile Edit {% endblock %}
 
-{% block header %} Update Your Information {% endblock %}
+{% block header %}<h1 class="">Update Your Information</h1>{% endblock %}
 
 {% block content %}
 <br />
@@ -19,7 +19,8 @@
     <br />
     Weekly Pickup Day: <input type="text" name="weekly" id="weekly" value="{{logged_in_customer.weekly_pickup}}">
     <br />
-    <input type="submit" value="Submit">
+    <br />
+    <input class="btn btn-success" type="submit" value="Submit">
 </form>
 
 {% endblock %}
