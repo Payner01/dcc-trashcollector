@@ -17,7 +17,6 @@ def index(request):
     logged_in_user = request.user
     try:
         logged_in_employee = Employee.objects.get(user=logged_in_user)
-        weekday_list = [('monday','Monday'), 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         today = date.today()
         weekday = today.strftime('%A')
         customers_in_my_zipcode = Customer.objects.filter(zip_code = logged_in_employee.zip_code)
